@@ -7,9 +7,9 @@ Writeup for the flag shop challenge in the web category from bsides algiers CTF
 - The code provides is in app.py and utils.py
 # solution
 [home page](./writeup1.png) \
-&nbsp;&nbsp;When we first register a user to the website ,we see in the home page 3 flags and to solve the challenge we need to buy the flag that has a price of 40.99.
+&nbsp;&nbsp;&nbsp;When we first register a user to the website ,we see in the home page 3 flags and to solve the challenge we need to buy the flag that has a price of 40.99.
   
- &nbsp;&nbsp;We can see that we have an initial balance of 10 and an option to redeem a ticket and add 10 to the balance, in order to see the format needed for the tickets we must see the code ,in app.py after checking the /redeem route we see many important informations in this section of the code:
+ &nbsp;&nbsp;&nbsp;We can see that we have an initial balance of 10 and an option to redeem a ticket and add 10 to the balance, in order to see the format needed for the tickets we must see the code ,in app.py after checking the /redeem route we see many important informations in this section of the code:
   
 ```python
 ticket = request.form["ticket"]
@@ -22,14 +22,15 @@ ticket = request.form["ticket"]
             return render_template("home.html", flags=flags, message="Can't redeem ticket", balance=getBalance(username))
 ```
 
-   We can see that jwt is used and it has a ticket_regex in the payload, the regex is generated with the generateticket funtion in utils.py, we can clearly see that if a user sends a valid ticket once he will no longer be able to use the redeem option and thus the maximum balance he can have is 20 so we need to find a way to use the userRedeem function more than once. \
-   I tried cracking the jwt to get the secret key using john the ripper and the rockyou wordlist to see if i can play with the jwt payload, i found the secret key: chickencurry. 
+   &nbsp;&nbsp;&nbsp;We can see that jwt is used and it has a ticket_regex in the payload, the regex is generated with the generateticket funtion in utils.py, we can clearly see that if a user sends a valid ticket once he will no longer be able to use the redeem option and thus the maximum balance he can have is 20 so we need to find a way to use the userRedeem function more than once. 
    
-   After some research on how can regex be hard for computers to match against strings i found something called evil regex which are usually used for redos, so i thought of making a regex that can make the web server take long to match with the ticket so all the requests can pass the checkRedeem function before executing userRedeem(). 
+   &nbsp;&nbsp;&nbsp;I tried cracking the jwt to get the secret key using john the ripper and the rockyou wordlist to see if i can play with the jwt payload, i found the secret key: chickencurry. 
    
-   I experimented with some regex locally and i made this one ^(a+)+$| and the ticket that i will send is "aaaaaaaaaaaaaaaaaaaaaaaa!", this will match the regex and take sometime because the webserver will try the first regex (a+)+$ which is an evil regex and does not match the ticket so it will test all the possible ways to say that it doesn't match and with the or operator it will match the second regex so we will return a matching object. 
+   &nbsp;&nbsp;&nbsp;After some research on how can regex be hard for computers to match against strings i found something called evil regex which are usually used for redos, so i thought of making a regex that can make the web server take long to match with the ticket so all the requests can pass the checkRedeem function before executing userRedeem(). 
    
-   Now after finding the regex we make a jwt with that regex and make a script to send parallel requests using multiprocessing to make our balance bigger than the flag price. 
+   &nbsp;&nbsp;&nbsp;I experimented with some regex locally and i made this one ^(a+)+$| and the ticket that i will send is "aaaaaaaaaaaaaaaaaaaaaaaa!", this will match the regex and take sometime because the webserver will try the first regex (a+)+$ which is an evil regex and does not match the ticket so it will test all the possible ways to say that it doesn't match and with the or operator it will match the second regex so we will return a matching object. 
+   
+   &nbsp;&nbsp;&nbsp;Now after finding the regex we make a jwt with that regex and make a script to send parallel requests using multiprocessing to make our balance bigger than the flag price. 
    
    here is the script:
    ```python
@@ -58,5 +59,5 @@ if __name__ == '__main__':
     for process in processlist:
         process.join()
 ```
-   edit your token cookie with the jwt that you have, now you can buy the real flag!
+   &nbsp;&nbsp;&nbsp;Edit your token cookie with the jwt that you have, now you can buy the real flag!
    
