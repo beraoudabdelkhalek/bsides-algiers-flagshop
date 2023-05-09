@@ -25,7 +25,7 @@ ticket = request.form["ticket"]
    We can see that jwt is used and it has a ticket_regex in the payload, the regex is generated with the generateticket funtion in utils.py, we can clearly see that if a user uses a valid ticket once he will no longer be able to use the redeem option and thus the maximum balance he can have is 20 so we need to find a way to use the userReddem function more than once. \
    I tried cracking the jwt to get the secret key using john the ripper and the rockyou wordlist to see if i can play with the jwt payload, i found the secret key chickencurry. 
    
-   After some research on how can regex be hard for computers to match against strings i found something called evil regex which are usually used for redos, so i thought of making a regex that can make the web server take long to match with the ticket so all the requests can pass the checkRedeem function before executing userRedeem. \
+   After some research on how can regex be hard for computers to match against strings i found something called evil regex which are usually used for redos, so i thought of making a regex that can make the web server take long to match with the ticket so all the requests can pass the checkRedeem function before executing userRedeem. 
    
    I experimented with some regex locally and i made this one ^(a+)+$| and the ticket that i will send is "aaaaaaaaaaaaaaaaaaaaaaaa!", this will match the regex and take sometime because the webserver will try the first regex (a+)+$ which is an evil regex and does not match the ticket so it will test all the possible ways to say that it doesn't match and with the or operator it will match the second regex so we will have a matching object. 
    
@@ -58,5 +58,5 @@ if __name__ == '__main__':
     for process in processlist:
         process.join()
 ```
-   edit your token cookie with the jwt that you have, now you can by the real flag!
+   edit your token cookie with the jwt that you have, now you can buy the real flag!
    
