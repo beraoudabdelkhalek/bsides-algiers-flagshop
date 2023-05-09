@@ -4,7 +4,7 @@ Writeup for the flag shop challenge in the web category from bsides algiers CTF
 - Description: They got some fancy flags out there, but that one really takes time to get.
 - Solves: 7
 - Author: ouxs
-- The code provides is in app.py and utils.py
+- The code provided is in app.py and utils.py
 # solution
 [home page](./writeup1.png) \
 &nbsp;&nbsp;&nbsp;When we first register a user to the website ,we see in the home page 3 flags and to solve the challenge we need to buy the flag that has a price of 40.99.
