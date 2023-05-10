@@ -1,12 +1,13 @@
 # bsides-algiers-2023-flagshop
-Writeup for the flag shop challenge in the web category from bsides algiers CTF
+Writeup for the flag shop challenge in the web 
+category from bsides algiers CTF
 # info about the challenge
 - Description: They got some fancy flags out there, but that one really takes time to get.
 - Solves: 7
 - Author: ouxs
 - The code provided is in app.py and utils.py
 # solution
-[home page](./writeup1.png) \
+<img alt="writeup" src="./writeup1.png" style="width:80%; margin-left: auto; margin-right:auto; display:block; margin-bottom:10px;">
 &nbsp;&nbsp;&nbsp;When we first register a user to the website ,we see in the home page 3 flags and to solve the challenge we need to buy the flag that has a price of 40.99.
   
  &nbsp;&nbsp;&nbsp;We can see that we have an initial balance of 10 and an option to redeem a ticket and add 10 to the balance, in order to see the format needed for the tickets we must see the code ,in app.py after checking the /redeem route we see many important informations in this section of the code:
