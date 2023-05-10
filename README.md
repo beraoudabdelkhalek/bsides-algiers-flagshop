@@ -1,3 +1,5 @@
+<img alt="writeup" src="./writeup1.png">
+
 # bsides-algiers-2023-flagshop
 Writeup for the flag shop challenge in the web category from bsides algiers CTF
 # info about the challenge
