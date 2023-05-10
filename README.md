@@ -47,7 +47,7 @@ if __name__ == '__main__':
     payload="aaaaaaaaaaaaaaaaaaaaaa!"
     # Define the data to send in the request body
     data = {'ticket': payload}
-    # Send 5 POST requests in parallel using multiprocessing
+    # Send POST requests in parallel using multiprocessing
     processlist = []
     for _ in range(0, 6):
         process = Process(target=requests.post, kwargs={"url":url,"cookies":cookies ,"data":data})
