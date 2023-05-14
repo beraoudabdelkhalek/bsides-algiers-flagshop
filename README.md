@@ -32,7 +32,7 @@ ticket = request.form["ticket"]
    
    &nbsp;&nbsp;&nbsp;After some research on how can regex be hard for computers to match against strings i found something called evil regex which are usually used for redos, so i thought of making a regex that can make the web server take long to match with the ticket so all the requests can pass the checkRedeem function before executing userRedeem(). 
    
-   &nbsp;&nbsp;&nbsp;I experimented with some regex locally and i made this one ^(a+)+$| and the ticket that i will send is "aaaaaaaaaaaaaaaaaaaaaaaa!", this will match the regex and take sometime because the webserver will try the first regex (a+)+$ which is an evil regex and does not match the ticket so it will test all the possible ways to say that it doesn't match and with the or operator it will match the second regex so we will return a matching object. 
+   &nbsp;&nbsp;&nbsp;I experimented with some regex locally and i made this one ^(a+)+$| and the ticket that i will send is "aaaaaaaaaaaaaaaaaaaaaaaa!", this will match the regex and take sometime because the webserver will try the first regex (a+)+$ which is an evil regex and does not match the ticket so it will test all the possible ways to say that it doesn't match and with the or operator it will match the second regex so it will return a matching object. 
    
    &nbsp;&nbsp;&nbsp;Now after finding the regex we make a jwt with that regex and make a script to send parallel requests using multiprocessing to make our balance bigger than the flag price. 
    
